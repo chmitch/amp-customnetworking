@@ -69,13 +69,6 @@
             "metadata": {
                 "description": "Password for the Virtual Machine."
             }
-        },
-        "tetrationAdminPasswd": {
-            "type": "string",
-            "defaultValue" : "",
-            "metadata": {
-                "description": "Password that will be used with account 'admin'."
-            }
         },        
         "fmcIpAddress": {
             "type": "string",
@@ -201,7 +194,7 @@
         "imageSKU": "CENTOS72",
         "OSDiskName": "[concat(parameters('vmName'),'-disk')]",
         "vmStorageAccountContainerName": "vhds",
-        "customData": "[concat('{\"AdminPassword\":\"', parameters('tetrationAdminPasswd'), '\",\"Hostname\":\"', parameters('vmName'), '\",\"FmcIp\":\"', parameters('fmcIpAddress')]",
+        "customData": "[concat('{\"AdminPassword\":\"', parameters('adminPasswd'), '\",\"Hostname\":\"', parameters('vmName'), '\",\"FmcIp\":\"', parameters('fmcIpAddress')]",
         "vnetID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
         "subnet1Ref": "[concat(variables('vnetID'),'/subnets/', parameters('Subnet1Name'))]",
         "nsgname": "[concat(parameters('vmName'),'-SSH-SecurityGroup')]",
