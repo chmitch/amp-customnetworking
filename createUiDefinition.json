@@ -245,18 +245,10 @@
       "virtualNetworkAddressPrefix" : "[steps('ciscoFTDvConfig').virtualNetwork.addressPrefix]",
       "Subnet1Name" : "[steps('ciscoFTDvConfig').virtualNetwork.subnets.subnet1.name]",
       "Subnet1Prefix" : "[steps('ciscoFTDvConfig').virtualNetwork.subnets.subnet1.addressPrefix]",
-      "Subnet2Name" : "[steps('ciscoFTDvConfig').virtualNetwork.subnets.subnet2.name]",
-      "Subnet2Prefix" : "[steps('ciscoFTDvConfig').virtualNetwork.subnets.subnet2.addressPrefix]",
-      "Subnet3Name" : "[steps('ciscoFTDvConfig').virtualNetwork.subnets.subnet3.name]",
-      "Subnet3Prefix" : "[steps('ciscoFTDvConfig').virtualNetwork.subnets.subnet3.addressPrefix]",
-      "Subnet4Name" : "[steps('ciscoFTDvConfig').virtualNetwork.subnets.subnet4.name]",
-      "Subnet4Prefix" : "[steps('ciscoFTDvConfig').virtualNetwork.subnets.subnet4.addressPrefix]",
       "vnetNewOrExisting" : "[steps('ciscoFTDvConfig').virtualNetwork.newOrExisting]",
       "virtualNetworkExistingRGName" : "[steps('ciscoFTDvConfig').virtualNetwork.resourceGroup]",
-      "subnet1StartAddress" : "[steps('ciscoFTDvConfig').virtualNetwork.subnets.subnet1.startAddress]",
-      "subnet2StartAddress" : "[steps('ciscoFTDvConfig').virtualNetwork.subnets.subnet2.startAddress]",
-      "subnet3StartAddress" : "[steps('ciscoFTDvConfig').virtualNetwork.subnets.subnet3.startAddress]",
-      "subnet4StartAddress" : "[steps('ciscoFTDvConfig').virtualNetwork.subnets.subnet4.startAddress]"
+      "subnet1StartAddress" : "[steps('ciscoFTDvConfig').virtualNetwork.subnets.subnet1.startAddress]"
+      
     }
   }
 }
