@@ -11,10 +11,10 @@
     "virtualNetworkAddressPrefix": {
       "type": "string"
     },
-    "Subnet1Name": {
+    "subnetName": {
       "type": "string"
     },
-    "Subnet1Prefix": {
+    "subnetPrefix": {
       "type": "string"
     },
     "vnetExistingRGName" : {
@@ -27,7 +27,7 @@
   },
   "variables" : {
     "vnetID" : "[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]",
-    "subnet1" : "[concat(variables('vnetID'),'/subnets/',parameters('Subnet1Name'))]",
+    "subnet1" : "[concat(variables('vnetID'),'/subnets/',parameters('subnetName'))]",
     "routeTable1Id" : "[resourceId('Microsoft.Network/routeTables',parameters('routeTable1Name'))]"
     },
   "resources": [
@@ -44,9 +44,9 @@
                 },
                 "subnets": [
                     {
-                        "name": "[parameters('Subnet1Name')]",
+                        "name": "[parameters('subnetName')]",
                         "properties": {
-                            "addressPrefix": "[parameters('Subnet1Prefix')]",
+                            "addressPrefix": "[parameters('subnetPrefix')]",
                             "routeTable": {
                                 "id": "[variables('routeTable1Id')]"
                             }

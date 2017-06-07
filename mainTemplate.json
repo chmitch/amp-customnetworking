@@ -36,7 +36,7 @@
                 "description": "Identifies whether to use new or existing Virtual Network"
             }
         },
-        "subnetAddressPrefix": {
+        "subnetPrefix": {
             "type": "string",
             "defaultValue": "10.1.0.0/24",
             "metadata": {
@@ -200,7 +200,7 @@
         "element3": "[string(variables('SubnetAddressArray')[2])]",
         "element4": "[string(variables('SubnetAddressArray')[3])]",
         "vmStaticAddress": "[concat(variables('element1'), '.', variables('element2'), '.', variables('element3'), '.252')]",
-        "customData": "[concat('{\"AdminPassword\":\"', parameters('adminPassword'), '\",\"Hostname\":\"', parameters('vmName'), '\",\"FmcIp\":\"',parameters('subnet1StartAddress'))]",
+        "customData": "[concat('{\"AdminPassword\":\"', parameters('adminPassword'), '\",\"Hostname\":\"', parameters('vmName'))]",
         "vnetID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
         "subnet1Ref": "[concat(variables('vnetID'),'/subnets/', parameters('Subnet1Name'))]",
         "nsgname": "[concat(parameters('vmName'),'-SSH-SecurityGroup')]",
