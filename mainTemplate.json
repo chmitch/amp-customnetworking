@@ -50,7 +50,7 @@
                 "description": "Management Subnet Name"
             }
         },
-        "subnet1StartAddress" : {
+        "subnetStartAddress" : {
             "type" : "string",
             "metadata" : {
                 "description" : "Management Subnet IP Address"
