@@ -187,12 +187,11 @@
         "imageSKU": "centos72",
         "OSDiskName": "[concat(parameters('vmName'),'-disk')]",
         "vmStorageAccountContainerName": "vhds",
-		"subnetAddressArray": "[split(parameters('subnetPrefix'), '.')]",
-        "element1": "[string(variables('subnetAddressArray')[0])]",
-        "element2": "[string(variables('subnetAddressArray')[1])]",
-        "element3": "[string(variables('subnetAddressArray')[2])]",
-        "element4": "[string(variables('subnetAddressArray')[3])]",
-        "vmStaticAddress": "[concat(variables('element1'), '.', variables('element2'), '.', variables('element3'), '.252')]",
+		"subnetAddressArray": "[split(parameters('subnetPrefix'),'.']",
+		"element1": "[string(variables('subnetAddressArray')[0])]",
+		"element2": "[string(variables('subnetAddressArray')[1])]",
+		"element3": "[string(variables('subnetAddressArray')[2])]",
+		"vmStaticAddress": "[concat(variables('element1'), '.', variables('element2'), '.', variables('element3'), '.252')]",
         "customData": "[concat('{\"AdminPassword\":\"', parameters('adminPassword'), '\",\"Hostname\":\"', parameters('vmName'))]",
         "vnetID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
         "subnet1Ref": "[concat(variables('vnetID'),'/subnets/', parameters('subnetName'))]",
@@ -341,8 +340,8 @@
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2015-01-01",
             "dependsOn" : [
-                "[concat('Microsoft.Network/routeTables/', parameters('subnetName'),'-FTDv-RouteTable')]",
-            ],
+                "[concat('Microsoft.Network/routeTables/', parameters('subnetName'),'-FTDv-RouteTable')]" 
+				],
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
