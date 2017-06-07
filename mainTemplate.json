@@ -45,7 +45,7 @@
         },
         "subnetName": {
             "type": "string",
-            "defaultValue": "subnet1",
+            "defaultValue": "default",
             "metadata": {
                 "description": "Management Subnet Name"
             }
@@ -68,13 +68,6 @@
             "defaultValue" : "",
             "metadata": {
                 "description": "Password for the Virtual Machine."
-            }
-        },        
-        "fmcIpAddress": {
-            "type": "string",
-            "defaultValue" : "",
-            "metadata": {
-                "description": "IP address of the FMC or the string DONTRESOLVE if NAT Id will be used."
             }
         },        
         "sshPublicKey": {
@@ -194,15 +187,15 @@
         "imageSKU": "centos72",
         "OSDiskName": "[concat(parameters('vmName'),'-disk')]",
         "vmStorageAccountContainerName": "vhds",
-		"SubnetAddressArray": "[split(parameters('subnetAddressPrefix'), '.')]",
-        "element1": "[string(variables('SubnetAddressArray')[0])]",
-        "element2": "[string(variables('SubnetAddressArray')[1])]",
-        "element3": "[string(variables('SubnetAddressArray')[2])]",
-        "element4": "[string(variables('SubnetAddressArray')[3])]",
+		"subnetAddressArray": "[split(parameters('subnetPrefix'), '.')]",
+        "element1": "[string(variables('subnetAddressArray')[0])]",
+        "element2": "[string(variables('subnetAddressArray')[1])]",
+        "element3": "[string(variables('subnetAddressArray')[2])]",
+        "element4": "[string(variables('subnetAddressArray')[3])]",
         "vmStaticAddress": "[concat(variables('element1'), '.', variables('element2'), '.', variables('element3'), '.252')]",
         "customData": "[concat('{\"AdminPassword\":\"', parameters('adminPassword'), '\",\"Hostname\":\"', parameters('vmName'))]",
         "vnetID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
-        "subnet1Ref": "[concat(variables('vnetID'),'/subnets/', parameters('Subnet1Name'))]",
+        "subnet1Ref": "[concat(variables('vnetID'),'/subnets/', parameters('subnetName'))]",
         "nsgname": "[concat(parameters('vmName'),'-SSH-SecurityGroup')]",
         "apiVer": "2015-06-15",
         "publicIPAddressType": "Dynamic",
@@ -348,7 +341,7 @@
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2015-01-01",
             "dependsOn" : [
-                "[concat('Microsoft.Network/routeTables/', parameters('Subnet1Name'),'-FTDv-RouteTable')]",
+                "[concat('Microsoft.Network/routeTables/', parameters('subnetName'),'-FTDv-RouteTable')]",
             ],
             "properties": {
                 "mode": "Incremental",
@@ -366,24 +359,24 @@
                     "virtualNetworkAddressPrefix": {
                         "value": "[parameters('virtualNetworkAddressPrefix')]"
                     },
-                    "Subnet1Name": {
-                        "value": "[parameters('Subnet1Name')]"
+                    "subnetName": {
+                        "value": "[parameters('subnetName')]"
                     },
-                    "Subnet1Prefix": {
-                        "value": "[parameters('Subnet1Prefix')]"
+                    "subnetPrefix": {
+                        "value": "[parameters('subnetPrefix')]"
                     },
                     "vnetExistingRGName": {
                         "value": "[parameters('virtualNetworkExistingRGName')]"
                     },
                     "routeTable1Name" :{
-                      "value" : "[concat(parameters('Subnet1Name'),'-FTDv-RouteTable')]"
+                      "value" : "[concat(parameters('subnetName'),'-FTDv-RouteTable')]"
                     }
                 }
             }
         },
         {
             "type": "Microsoft.Network/routeTables",
-            "name": "[concat(parameters('Subnet1Name'),'-FTDv-RouteTable')]",
+            "name": "[concat(parameters('subnetName'),'-FTDv-RouteTable')]",
             "apiVersion": "[variables('apiVer')]",
             "location": "[parameters('location')]",
             "properties": {
@@ -407,7 +400,7 @@
                         "name": "ipconfig1",
                         "properties": {
                             "privateIPAllocationMethod": "Static",
-                            "privateIPAddress" : "[variables('vmStaticAddress')]",
+                            "privateIPAddress": "[variables('vmStaticAddress')]",
                             "subnet": {
                                 "id": "[reference('Microsoft.Resources/deployments/SettingUpVirtualNetwork', '2015-01-01').outputs.subnet1Ref.value]"
                             },
