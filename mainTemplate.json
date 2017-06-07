@@ -187,7 +187,7 @@
         "imageSKU": "centos72",
         "OSDiskName": "[concat(parameters('vmName'),'-disk')]",
         "vmStorageAccountContainerName": "vhds",
-		"subnetAddressArray": "[split(parameters('subnetPrefix'),'.']",
+		"subnetAddressArray": "[split(parameters('subnetPrefix'), '.')]",
 		"element1": "[string(variables('subnetAddressArray')[0])]",
 		"element2": "[string(variables('subnetAddressArray')[1])]",
 		"element3": "[string(variables('subnetAddressArray')[2])]",
