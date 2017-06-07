@@ -423,9 +423,9 @@
             "name": "[parameters('vmName')]",
             "location": "[parameters('location')]",
             "plan": {
-                "name": "ftdv-azure-byol",
+                "name": "CENTOS72",
                 "publisher": "cisco",
-                "product": "cisco-ftdv"
+                "product": "tetration-trial"
             },
             "dependsOn": [
                 "[concat('Microsoft.Resources/deployments/', 'SettingUpStorageAccount')]",
