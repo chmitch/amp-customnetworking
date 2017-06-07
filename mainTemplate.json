@@ -422,7 +422,7 @@
             "name": "[parameters('vmName')]",
             "location": "[parameters('location')]",
             "plan": {
-                "name": "centos72"
+                "name": "centos72",
                 "publisher": "cisco",
                 "product": "tetration"
             },
