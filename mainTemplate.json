@@ -24,28 +24,28 @@
         },
         "virtualNetworkAddressPrefix": {
             "type": "string",
-            "defaultValue": "",
+            "defaultValue": "10.1.0.0/24",
             "metadata": {
                 "description": "Virtual Network Address prefix"
             }
         },
         "vnetNewOrExisting" : {
             "type" : "string",
-            "defaultValue" : "",
+            "defaultValue" : "new",
             "metadata": {
                 "description": "Identifies whether to use new or existing Virtual Network"
             }
         },
-        "Subnet1Prefix": {
+        "subnetAddressPrefix": {
             "type": "string",
-            "defaultValue": "",
+            "defaultValue": "10.1.0.0/24",
             "metadata": {
                 "description": "Management Subnet Prefix"
             }
         },
-        "Subnet1Name": {
+        "subnetName": {
             "type": "string",
-            "defaultValue": "",
+            "defaultValue": "subnet1",
             "metadata": {
                 "description": "Management Subnet Name"
             }
@@ -194,6 +194,12 @@
         "imageSKU": "centos72",
         "OSDiskName": "[concat(parameters('vmName'),'-disk')]",
         "vmStorageAccountContainerName": "vhds",
+		"SubnetAddressArray": "[split(parameters('subnetStartAddress'), '.')]",
+        "element1": "[string(variables('SubnetAddressArray')[0])]",
+        "element2": "[string(variables('SubnetAddressArray')[1])]",
+        "element3": "[string(variables('SubnetAddressArray')[2])]",
+        "element4": "[string(variables('SubnetAddressArray')[3])]",
+        "vmStaticAddress": "[concat(variables('element1'), '.', variables('element2'), '.', variables('element3'), '.252')]"
         "customData": "[concat('{\"AdminPassword\":\"', parameters('adminPassword'), '\",\"Hostname\":\"', parameters('vmName'), '\",\"FmcIp\":\"',parameters('subnet1StartAddress'))]",
         "vnetID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
         "subnet1Ref": "[concat(variables('vnetID'),'/subnets/', parameters('Subnet1Name'))]",
@@ -401,7 +407,7 @@
                         "name": "ipconfig1",
                         "properties": {
                             "privateIPAllocationMethod": "Static",
-                            "privateIPAddress" : "[parameters('subnet1StartAddress')]",
+                            "privateIPAddress" : "[variables('vmStaticAddress')]",
                             "subnet": {
                                 "id": "[reference('Microsoft.Resources/deployments/SettingUpVirtualNetwork', '2015-01-01').outputs.subnet1Ref.value]"
                             },
