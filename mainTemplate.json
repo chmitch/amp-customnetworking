@@ -4,6 +4,7 @@
     "parameters": {
         "location": {
             "type": "string",
+			"defaultValue": "East US",
             "metadata": {
                 "description": "Deployment location"
             }
@@ -171,10 +172,9 @@
         },
         "vmSize" : {
             "type" : "string",
-            "defaultValue" : "Standard_D3_v2",
+            "defaultValue" : "Standard_DS2_v2",
             "allowedValues" : [
-                "Standard_D3",
-                "Standard_D3_v2"
+                "Standard_DS2_v2"
             ],
             "metadata" : {
                 "description" : "Size of the Virtual Machine"
