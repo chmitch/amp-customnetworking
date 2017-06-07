@@ -190,7 +190,7 @@
     },
     "variables": {
         "imagePublisher": "cisco",
-        "imageOffer": "tetration-trial",
+        "imageOffer": "tetration",
         "imageSKU": "CENTOS72",
         "OSDiskName": "[concat(parameters('vmName'),'-disk')]",
         "vmStorageAccountContainerName": "vhds",
@@ -425,7 +425,7 @@
             "plan": {
                 "name": "CENTOS72",
                 "publisher": "cisco",
-                "product": "tetration-trial"
+                "product": "tetration"
             },
             "dependsOn": [
                 "[concat('Microsoft.Resources/deployments/', 'SettingUpStorageAccount')]",
