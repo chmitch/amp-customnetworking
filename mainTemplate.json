@@ -186,7 +186,15 @@
 			"metadata": {
 				"description":  "Size of the data disk in GB"
 			}
-		}
+		},
+
+        "mountPointFolder" : {
+            "type": "string", 
+            "defaultValue": "TetrationData",
+            "metadata": {
+                "description": "Name of the mount point folder for the data disk"
+            }
+        }
     },
     "variables": {
         "imagePublisher": "cisco",
@@ -209,6 +217,10 @@
         "publicIPSetupURL": "[concat(parameters('baseUrl'),'/publicip-',parameters('publicIPNewOrExisting'),'.json')]",
         "virtualNetworkSetupURL": "[concat(parameters('baseUrl'),'/vnet-',parameters('vnetNewOrExisting'),'.json')]",
         "osProfile": "[variables(concat('osprofile',parameters('authenticationType')))]",
+        "subscriptionId": "[subscription().subscriptionId]",
+        "installScriptName": "centosftab-copymetadata.sh",
+        "installScriptUri": "[concat(parameters('baseUrl'), variables('installScriptName'))]",
+        "installCommand": "[concat('sh ', variables('installScriptName'), ' ', parameters('vmName'), ' ' , parameters('location'), ' ', parameters('virtualNetworkName'), ' ', parameters('addressPrefix'), ' ',  variables('subnet1Ref'), ' ', variables('subscriptionId'), ' ', parameters('newStorageAccountName'), ' ', parameters('mountPointFolder'))]",
         "osProfilesshPublicKey": {
             "computername": "[parameters('vmName')]",
             "adminUsername": "[parameters('adminUsername')]",
@@ -460,7 +472,7 @@
 							"lun": 0,
 							"createOption": "Empty" 
 						} 
-					], 
+					] 
                 },
                 "osProfile": "[variables('osProfile')]",
                 "networkProfile": {
@@ -478,6 +490,29 @@
                         "enabled": "true",
                         "storageUri": "[concat('http://',parameters('newStorageAccountName'),'.blob.core.windows.net')]"
                     }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachines/extensions",
+            "name": "[concat(variables('vmName'),'/updatemetadata')]",
+            "apiVersion": "[variables('apiVer')]",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]"
+            ],
+            "properties": {
+                "publisher": "Microsoft.Azure.Extensions",
+                "type": "CustomScript",
+                "typeHandlerVersion": "2.0",
+                "autoUpgradeMinorVersion": true,
+                "settings": {
+                    "fileUris": [
+                        "[variables('installScriptUri')]"
+                    ]
+                },
+                "protectedSettings": {
+                    "commandToExecute": "[concat(variables('installCommand'))]"
                 }
             }
         }
