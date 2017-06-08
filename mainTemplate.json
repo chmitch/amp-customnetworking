@@ -192,7 +192,6 @@
 		"element2": "[string(variables('subnetAddressArray')[1])]",
 		"element3": "[string(variables('subnetAddressArray')[2])]",
 		"vmStaticAddress": "[concat(variables('element1'), '.', variables('element2'), '.', variables('element3'), '.252')]",
-        "customData": "[concat('{\"AdminPassword\":\"', parameters('adminPassword'), '\",\"Hostname\":\"', parameters('vmName'))]",
         "vnetID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
         "subnet1Ref": "[concat(variables('vnetID'),'/subnets/', parameters('subnetName'))]",
         "nsgname": "[concat(parameters('vmName'),'-SSH-SecurityGroup')]",
@@ -216,14 +215,12 @@
                         }
                     ]
                 }
-            },
-            "customData": "[base64(variables('customData'))]"
+            }
         },
         "osProfilepassword": {
             "computername": "[parameters('vmName')]",
             "adminUsername": "[parameters('adminUsername')]",
-            "adminPassword": "[parameters('adminPassword')]",
-            "customData": "[base64(variables('customData'))]"
+            "adminPassword": "[parameters('adminPassword')]"
         }
     },
     "resources": [
