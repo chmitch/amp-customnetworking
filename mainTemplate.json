@@ -170,16 +170,25 @@
             },
             "defaultValue": ""
         },
-        "vmSize" : {
-            "type" : "string",
-            "defaultValue" : "Standard_DS2_v2",
-            "allowedValues" : [
+        "vmSize": {
+            "type": "string",
+            "defaultValue": "Standard_DS2_v2",
+            "allowedValues": [
                 "Standard_DS2_v2"
             ],
             "metadata" : {
                 "description" : "Size of the Virtual Machine"
             }
-        }
+        },
+		"sizeOfDataDiskInGB": {
+			"type": "int",
+			"defaultValue": 100,
+			"minValue": 50,
+			"maxValue": 250
+			"metadata": {
+				"description":  "Size of the data disk in GB"
+			}
+		}
     },
     "variables": {
         "imagePublisher": "cisco",
@@ -192,6 +201,7 @@
 		"element2": "[string(variables('subnetAddressArray')[1])]",
 		"element3": "[string(variables('subnetAddressArray')[2])]",
 		"vmStaticAddress": "[concat(variables('element1'), '.', variables('element2'), '.', variables('element3'), '.252')]",
+        "customData": "[concat('{\"AdminPassword\":\"', parameters('adminPassword'), '\",\"Hostname\":\"', parameters('vmName'))]",
         "vnetID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
         "subnet1Ref": "[concat(variables('vnetID'),'/subnets/', parameters('subnetName'))]",
         "nsgname": "[concat(parameters('vmName'),'-SSH-SecurityGroup')]",
@@ -215,12 +225,14 @@
                         }
                     ]
                 }
-            }
+            },
+            "customData": "[base64(variables('customData'))]"
         },
         "osProfilepassword": {
             "computername": "[parameters('vmName')]",
             "adminUsername": "[parameters('adminUsername')]",
-            "adminPassword": "[parameters('adminPassword')]"
+            "adminPassword": "[parameters('adminPassword')]",
+            "customData": "[base64(variables('customData'))]"
         }
     },
     "resources": [
@@ -440,7 +452,7 @@
                     },
 					"dataDisks": [
 						{
-						  "diskSizeGB": "[parameters('sizeOfEachDataDiskInGB')]",
+						  "diskSizeGB": "[parameters('sizeOfDataDiskInGB')]",
 						  "lun": 0,
 						  "createOption": "Empty"
 						}
