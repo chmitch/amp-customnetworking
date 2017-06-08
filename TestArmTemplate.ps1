@@ -4,7 +4,7 @@
 $subscription = "Microsoft Azure Internal Consumption"
 
 #this prefix is used to help make names of vms storage accounts etc unique.  Keep if 5 characters or less.
-$envPrefixName = "cgmtet7" 
+$envPrefixName = "cgmtet8" 
 $username = "amadmin"
 $rgname = $envPrefixName + "rg"
 
