@@ -325,6 +325,20 @@
                         }
                     },
                     {
+                        "name": "Tetration-Rule",
+                        "properties": {
+                            "description": "Allow 9000",
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "9000",
+                            "sourceAddressPrefix": "Internet",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 110,
+                            "direction": "Inbound"
+                        }
+                    },
+					{
                         "name": "SF-Tunnel-Rule",
                         "properties": {
                             "description": "Allow SF Tunnel",
@@ -334,7 +348,7 @@
                             "sourceAddressPrefix": "Internet",
                             "destinationAddressPrefix": "*",
                             "access": "Allow",
-                            "priority": 110,
+                            "priority": 120,
                             "direction": "Inbound"
                         }
                     }
