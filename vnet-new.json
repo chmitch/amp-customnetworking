@@ -32,7 +32,7 @@
     },
   "resources": [
         {
-            "apiVersion": "[variables('apiVer')]",
+            "apiVersion": "2017-05-10",
             "type": "Microsoft.Network/virtualNetworks",
             "name": "[parameters('virtualNetworkName')]",
             "location": "[parameters('location')]",

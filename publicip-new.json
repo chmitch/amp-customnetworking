@@ -25,7 +25,7 @@
   },
   "resources": [
     {
-      "apiVersion": "[variables('apiVer')]",
+      "apiVersion": "2017-05-10",
       "type": "Microsoft.Network/publicIPAddresses",
       "name": "[parameters('publicIpAddressName')]",
       "location": "[parameters('location')]",
