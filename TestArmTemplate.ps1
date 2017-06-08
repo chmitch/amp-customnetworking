@@ -30,7 +30,7 @@ $publicIPAddressName = $envPrefixName + "pubip"
 $publicIPDnsName =  $envPrefixName + "dns"
 $publicIPNewOrExisting = "new"
 $publicIPExistingRGName = ""
-$baseUrl = "https://raw.githubusercontent.com/chmitch/tetration/master" 
+$baseUrl = "https://raw.githubusercontent.com/chmitch/amp-customnetworking/master" 
 $vmSize = "Standard_DS2_v2"
 
 #-TemplateUri https://raw.githubusercontent.com/chmitch/tetration/master/mainTemplate.json `
@@ -46,7 +46,7 @@ New-AzureRmResourceGroupDeployment `
     -vnetNewOrExisting $vnetNewOrExisting `
     -subnetPrefix $subnetPrefix `
     -subnetName $SubnetName `
-    -subnetStartAddress $subnet1StartAddress `
+    -subnetStartAddress $subnetStartAddress `
     -adminUsername $adminUsername `
     -newStorageAccountName $newStorageAccountName `
     -storageAccountType $storageAccountType `
@@ -57,5 +57,5 @@ New-AzureRmResourceGroupDeployment `
     -publicIPDnsName $publicIPDnsName `
     -publicIPNewOrExisting $publicIPNewOrExisting `
     -publicIPExistingRGName $publicIPExistingRGName `
-    -vmSize $vmSize -baseUrl $baseUrl -adminPassword $adminPassword -vmName $vmName
+    -vmSize $vmSize -artifactsBaseUrl $baseUrl -adminPassword $adminPassword -uniqueNamePrefix $envPrefixName
     
