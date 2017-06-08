@@ -183,8 +183,6 @@
 		"sizeOfDataDiskInGB": {
 			"type": "int",
 			"defaultValue": 100,
-			"minValue": 50,
-			"maxValue": 250,
 			"metadata": {
 				"description":  "Size of the data disk in GB"
 			}
@@ -205,7 +203,7 @@
         "vnetID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
         "subnet1Ref": "[concat(variables('vnetID'),'/subnets/', parameters('subnetName'))]",
         "nsgname": "[concat(parameters('vmName'),'-SSH-SecurityGroup')]",
-        "apiVer": "2015-06-15",
+        "apiVer": "2017-05-10",
         "publicIPAddressType": "Dynamic",
         "sshKeyPath": "[concat('/home/',parameters('adminUsername'),'/.ssh/authorized_keys')]",
         "storageAccountSetupURL": "[concat(parameters('baseUrl'),'/storageAccount-',parameters('storageAccountNewOrExisting'),'.json')]",
@@ -239,7 +237,7 @@
         {
             "name": "SettingUpStorageAccount",
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2015-01-01",
+            "apiVersion": "[variables('apiVer')]",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -277,7 +275,7 @@
         {
             "name": "SettingUpPublicIP",
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2015-01-01",
+            "apiVersion": "[variables('apiVer')]",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -347,7 +345,7 @@
         {
             "name": "SettingUpVirtualNetwork",
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2015-01-01",
+            "apiVersion": "[variables('apiVer')]",
             "dependsOn" : [
                 "[concat('Microsoft.Network/routeTables/', parameters('subnetName'),'-FTDv-RouteTable')]" 
 				],
@@ -442,7 +440,6 @@
                 "hardwareProfile": {
                     "vmSize": "[parameters('vmSize')]"
                 },
-                "osProfile": "[variables('osProfile')]",
                 "storageProfile": {
                     "imageReference": {
                         "publisher": "[variables('imagePublisher')]",
@@ -450,17 +447,16 @@
                         "sku": "[variables('imageSKU')]",
                         "version": "latest"
                     },
-					"dataDisks": [
-						{
-						  "diskSizeGB": "[parameters('sizeOfDataDiskInGB')]",
-						  "lun": 0,
-						  "createOption": "Empty"
-						}
-					],
 					"osDisk": {
-						"createOption": "FromImage"
+							"name": "[variables('OSDiskName')]",
+							"createOption": "FromImage",
+							"managedDisk": {
+								"storageAccountType": "Premium_LRS"
+							},
+							"caching": "ReadWrite"
 					}
                 },
+                "osProfile": "[variables('osProfile')]",
                 "networkProfile": {
                     "networkInterfaces": [
                         {
