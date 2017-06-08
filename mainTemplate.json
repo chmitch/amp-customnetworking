@@ -192,7 +192,6 @@
         "imagePublisher": "cisco",
         "imageOffer": "tetration",
         "imageSKU": "centos72",
-        "OSDiskName": "[concat(parameters('vmName'),'-disk')]",
         "vmStorageAccountContainerName": "vhds",
 		"subnetAddressArray": "[split(parameters('subnetPrefix'),'.')]",
 		"element1": "[string(variables('subnetAddressArray')[0])]",
@@ -203,7 +202,7 @@
         "vnetID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
         "subnet1Ref": "[concat(variables('vnetID'),'/subnets/', parameters('subnetName'))]",
         "nsgname": "[concat(parameters('vmName'),'-SSH-SecurityGroup')]",
-        "apiVer": "2017-05-01",
+        "apiVer": "2017-03-01",
         "publicIPAddressType": "Dynamic",
         "sshKeyPath": "[concat('/home/',parameters('adminUsername'),'/.ssh/authorized_keys')]",
         "storageAccountSetupURL": "[concat(parameters('baseUrl'),'/storageAccount-',parameters('storageAccountNewOrExisting'),'.json')]",
@@ -261,7 +260,7 @@
             }
           },
         {
-          "apiVersion": "[variables('apiVer')]",
+          "apiVersion": "2015-06-15",
           "type": "Microsoft.Network/publicIPAddresses",
           "name": "[parameters('publicIPAddressName')]",
           "location": "[parameters('location')]",
@@ -423,7 +422,7 @@
               }
         },
 		{
-            "apiVersion": "[variables('apiVer')]",
+            "apiVersion": "2017-03-30",
             "type": "Microsoft.Compute/virtualMachines",
             "name": "[parameters('vmName')]",
             "location": "[parameters('location')]",
@@ -448,13 +447,21 @@
                         "version": "latest"
                     },
 					"osDisk": {
-							"name": "[variables('OSDiskName')]",
+							"name": "[concat(parameters('vmName'),'-os')]",
 							"createOption": "FromImage",
 							"managedDisk": {
 								"storageAccountType": "Premium_LRS"
 							},
 							"caching": "ReadWrite"
-					}
+					},
+					"dataDisks": [ 
+						{
+							"name": "[concat(parameters('vmName'),'-data')]",
+							"diskSizeGB": "[parameters('sizeOfDataDiskInGB')]",
+							"lun": 0,
+							"createOption": "Empty" 
+						} 
+					], 
                 },
                 "osProfile": "[variables('osProfile')]",
                 "networkProfile": {
