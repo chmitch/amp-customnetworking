@@ -345,9 +345,7 @@
             "name": "SettingUpVirtualNetwork",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "[variables('apiVer')]",
-            "dependsOn" : [
-                "[concat('Microsoft.Network/routeTables/', parameters('subnetName'),'-FTDv-RouteTable')]" 
-				],
+            "dependsOn" : [],
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -372,21 +370,8 @@
                     },
                     "vnetExistingRGName": {
                         "value": "[parameters('virtualNetworkExistingRGName')]"
-                    },
-                    "routeTable1Name" :{
-                      "value" : "[concat(parameters('subnetName'),'-FTDv-RouteTable')]"
                     }
                 }
-            }
-        },
-        {
-            "type": "Microsoft.Network/routeTables",
-            "name": "[concat(parameters('subnetName'),'-FTDv-RouteTable')]",
-            "apiVersion": "[variables('apiVer')]",
-            "location": "[parameters('location')]",
-            "properties": {
-                "routes": [
-              ]
             }
         },
 		{

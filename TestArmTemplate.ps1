@@ -4,12 +4,12 @@
 $subscription = "Microsoft Azure Internal Consumption"
 
 #this prefix is used to help make names of vms storage accounts etc unique.  Keep if 5 characters or less.
-$envPrefixName = "cgmtet" 
+$envPrefixName = "cgmtet2" 
 $username = "amadmin"
 $rgname = $envPrefixName + "rg"
 
 $location = "East US"
-$virtualNetworkName = $enfPrefixName + "vnet"
+$virtualNetworkName = $envPrefixName + "vnet"
 $virtualNetworkExistingRGName = $rgname
 $virtualNetworkAddressPrefix = "10.1.0.0/24"
 $vnetNewOrExisting = "new"
@@ -18,7 +18,7 @@ $subnetName = "tetsubnet"
 $subnetStartAddress = "10.1.0.1"
 $adminUsername = "tetadmin"
 #note put a real password in here
-$adminPassword = "" | ConvertTo-SecureString -AsPlainText -Force     
+$adminPassword = "P@ss0wrd!!!" | ConvertTo-SecureString -AsPlainText -Force     
 $sshPublicKey = ""
 $authenticationType = "password"
 $vmName = $envPrefixName + "orch"
@@ -39,7 +39,7 @@ New-AzureRmResourceGroup -Name $rgname -Location $location
     
 New-AzureRmResourceGroupDeployment `
     -ResourceGroupName $rgname  `
-    -TemplateUri https://raw.githubusercontent.com/chmitch/tetration/master/mainTemplate.json `
+-TemplateFile C:\projects\tetration\mainTemplate.json `
     -location $location `
     -virtualNetworkName $virtualNetworkName `
     -virtualNetworkExistingRGName $virtualNetworkExistingRGName `
