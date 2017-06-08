@@ -184,7 +184,7 @@
 			"type": "int",
 			"defaultValue": 100,
 			"minValue": 50,
-			"maxValue": 250
+			"maxValue": 250,
 			"metadata": {
 				"description":  "Size of the data disk in GB"
 			}
