@@ -28,7 +28,7 @@ set -o errexit
 echo 'before yum' >> /etc/1.txt
 
 # Install mdadm on Centos
-yum -y -q install mdadm
+yum --disablerepo=orchestrator -y install mdadm
 
 echo 'after yum' >> /etc/2.txt
 
