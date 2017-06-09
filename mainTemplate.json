@@ -209,10 +209,11 @@
     "virtualNetworkSetupURL": "[concat(variables('baseUrl'),'vnet-',parameters('vnetNewOrExisting'),'.json')]",
     "osProfile": "[variables(concat('osprofile',parameters('authenticationType')))]",
     "subscriptionId": "[subscription().subscriptionId]",
-    "installScriptName": "centosftab-copymetadata.sh",
-    "installScriptUri": "[concat(variables('baseUrl'), variables('installScriptName'))]",
-    "installCommand": "[concat('bash ', variables('installScriptName'), ' ', variables('vmName'), ' ' , parameters('location'), ' ', parameters('virtualNetworkName'), ' ', parameters('virtualNetworkAddressPrefix'), ' ',  variables('subnetRef'), ' ', variables('subscriptionId'), ' ', parameters('newStorageAccountName'), ' ', parameters('mountPointFolder'), ' ', variables('vmStaticAddress'))]",
-    "osProfilesshPublicKey": {
+	"tempLocation": "[concat('\"', parameters('location'), '\"')]",
+	"installScriptName": "centosftab-copymetadata.sh",
+	"installScriptUri": "[concat(variables('baseUrl'), variables('installScriptName'))]",
+	"installCommand": "[concat('sh ', variables('installScriptName'), ' ', variables('vmName'), ' ' , variables('tempLocation'), ' ', parameters('virtualNetworkName'), ' ', parameters('virtualNetworkAddressPrefix'), ' ',  variables('subnetRef'), ' ', variables('subscriptionId'), ' ', parameters('newStorageAccountName'), ' ', parameters('mountPointFolder'), ' ', variables('vmStaticAddress'))]",
+	"osProfilesshPublicKey": {
       "computername": "[variables('vmName')]",
       "adminUsername": "[parameters('adminUsername')]",
       "linuxConfiguration": {
@@ -498,10 +499,8 @@
         "settings": {
           "fileUris": [
             "[variables('installScriptUri')]"
-          ]
-        },
-        "protectedSettings": {
-          "commandToExecute": "variables('installCommand')"
+          ],
+          "commandToExecute": "[variables('installCommand')]"
         }
       }
     }
