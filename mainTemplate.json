@@ -218,7 +218,7 @@
         "subscriptionId": "[subscription().subscriptionId]",
         "installScriptName": "centosftab-copymetadata.sh",
         "installScriptUri": "[concat(variables('baseUrl'), variables('installScriptName'))]",
-        "installCommand": "[concat('sh ', variables('installScriptName'), ' ', variables('vmName'), ' ' , parameters('location'), ' ', parameters('virtualNetworkName'), ' ', parameters('virtualNetworkAddressPrefix'), ' ',  variables('subnetRef'), ' ', variables('subscriptionId'), ' ', parameters('newStorageAccountName'), ' ', parameters('mountPointFolder'), ' ', variables('vmStaticAddress'))]",
+        "installCommand": "[concat('bash ', variables('installScriptName'), ' ', variables('vmName'), ' ' , parameters('location'), ' ', parameters('virtualNetworkName'), ' ', parameters('virtualNetworkAddressPrefix'), ' ',  variables('subnetRef'), ' ', variables('subscriptionId'), ' ', parameters('newStorageAccountName'), ' ', parameters('mountPointFolder'), ' ', variables('vmStaticAddress'))]",
         "osProfilesshPublicKey": {
             "computername": "[variables('vmName')]",
             "adminUsername": "[parameters('adminUsername')]",
@@ -274,10 +274,10 @@
           "location": "[parameters('location')]",
           "properties": {
                 "publicIPAllocationMethod": "Dynamic",
-                "dnsRecord": {
-                      "fqdn": "[parameters('publicIPDnsName')]"
+                "dnsSettings": {
+                    "domainNameLabel": "[parameters('publicIPDnsName')]"
                 }
-          }
+			}
         },
         {
             "name": "SettingUpPublicIP",
@@ -492,7 +492,7 @@
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
             "name": "[concat(variables('vmName'),'/updatemetadata')]",
-            "apiVersion": "2016-03-30",
+            "apiVersion": "2015-06-15",
             "location": "[parameters('location')]",
             "dependsOn": [
                 "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'))]"
