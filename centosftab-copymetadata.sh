@@ -25,17 +25,11 @@ printf '{"deploymentName":"%s", "region":"%s","vnet":"%s","cdir":"%s","subnet":"
 set -o nounset
 set -o errexit
 
-echo 'before yum' >> /etc/1.txt
-
 # Install mdadm on Centos
 yum --disablerepo=orchestrator -y install mdadm
 
-echo 'after yum' >> /etc/2.txt
-
 # Create backup copy of fstab
 sudo cp /etc/fstab /etc/fstab.orig
-
-echo 'after backup fstab ' >> /etc/3.txt
 
 # Enumerate data disks attached to VM 
 # Leverages udev rules for Azure storage devices located at https://github.com/Azure/WALinuxAgent/blob/2.0/config/66-azure-storage.rules
@@ -43,20 +37,14 @@ attached=`basename -a $(find /sys/class/block -name 'sd[a-z]')`
 reserved=`basename -a $(readlink -f /dev/disk/azure/root /dev/disk/azure/resource)`
 datadisks=(${attached[@]/$reserved})
 
-echo 'after attaching disks' >> /etc/4.txt 
-
 # Set value to be used for filesystem label - max length 16 chars
 fslabel=$(hostname | cut -c1-10)-$mp
-
-echo 'after fslabel' >> /etc/5.txt
 
 # Set value for filesystem barriers - 0 if using Premium Storage w/ ReadOnly Caching or NoCache; 1 otherwise
 b=0
 
 # Set value for initial RAID command string used to span multiple data disks
 RAID_CMD="mdadm --create /dev/md1 --level 0 --raid-devices ${#datadisks[@]} "
-
-echo 'after set initial raid cmd' >> /etc/6.txt
 
 # Loop through each data disk, fdisk and add to RAID command string
 for d in "${datadisks[@]}"; do
@@ -65,41 +53,25 @@ for d in "${datadisks[@]}"; do
     RAID_CMD+="${disk}1 "
 done
 
-echo 'after looping data disks' >> /etc/7.txt
-
 RAID_CMD+=" --force"
-
-echo 'after --force' >> etc/8.txt
 
 # Build RAID device
 eval "$RAID_CMD"
 
-echo 'after eval raid_cmd' >> /etc/8.txt
-
 # Format and label filesystem
 mkfs.ext4 /dev/md1 -L ${fslabel}
-
-echo 'after mkfs.ext4' >> /etc/9.txt
 
 # Set value of UUID for new filesystem
 uuid=$(blkid -p /dev/md1 | grep -oP '[-a-z0-9]{36}')
 
-echo 'after setting UUID for fs' >> /etc/10.txt
-
 # Create mount point folder
 mkdir -p /media/${mp}
-
-echo 'after mkdir media' >> /etc/11.txt
 
 # Add new filesystem to working copy of fstab
 echo "UUID=${uuid} /media/${mp} ext4 defaults,noatime,barrier=${b} 0 0" >> /etc/fstab
 
-echo 'after add fs to fstab' >> /etc/12.txt
-
 # Mount all unmounted filesystems
 mount -a
-
-echo 'after mounting fs' >> /etc/13.txt
 
 # After initial provisioning, use these commands to obtain disk device or UUID of filesystem based on label
 # disk=$(blkid -L ${fslabel})
