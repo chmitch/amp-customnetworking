@@ -112,9 +112,9 @@
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "canonical",
-              "offer": "",
-              "sku": "",
+              "publisher": "cisco",
+              "offer": "tetration",
+              "sku": "centos72",
               "version": "latest"
             },
             "count": 1
