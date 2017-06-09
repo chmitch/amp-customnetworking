@@ -212,7 +212,7 @@
 	"tempLocation": "[concat('\"', parameters('location'), '\"')]",
 	"installScriptName": "centosftab-copymetadata.sh",
 	"installScriptUri": "[concat(variables('baseUrl'), variables('installScriptName'))]",
-	"installCommand": "[concat('sh ', variables('installScriptName'), ' ', variables('vmName'), ' ' , variables('tempLocation'), ' ', parameters('virtualNetworkName'), ' ', parameters('virtualNetworkAddressPrefix'), ' ',  variables('subnetRef'), ' ', variables('subscriptionId'), ' ', parameters('newStorageAccountName'), ' ', parameters('mountPointFolder'), ' ', variables('vmStaticAddress'))]",
+	"installCommand": "[concat('sudo bash ', variables('installScriptName'), ' ', variables('vmName'), ' ' , variables('tempLocation'), ' ', parameters('virtualNetworkName'), ' ', parameters('virtualNetworkAddressPrefix'), ' ',  variables('subnetRef'), ' ', variables('subscriptionId'), ' ', parameters('newStorageAccountName'), ' ', parameters('mountPointFolder'), ' ', variables('vmStaticAddress'))]",
 	"osProfilesshPublicKey": {
       "computername": "[variables('vmName')]",
       "adminUsername": "[parameters('adminUsername')]",

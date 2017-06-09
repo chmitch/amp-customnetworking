@@ -28,7 +28,7 @@ set -o errexit
 echo 'before yum' >> /etc/1.txt
 
 # Install mdadm on Centos
-sudo yum -y -q install mdadm
+yum -y -q install mdadm
 
 echo 'after yum' >> /etc/2.txt
 
