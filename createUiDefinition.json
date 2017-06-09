@@ -1,123 +1,140 @@
 {
   "handler": "Microsoft.Compute.MultiVm",
-  "version": "0.0.1-preview",
+  "version": "1.0.0-beta",
   "parameters": {
     "basics": [
       {
-        "name": "Name",
+        "name": "uniqueNamePrefix",
         "type": "Microsoft.Common.TextBox",
-        "label": "Virtual Machine name",
-        "toolTip": "The name of the Virtual Machine.",
+        "label": "VM name prefix",
+        "toolTip": "Prefix that will be used for all virtual machines in this Tetration deployment (e.g. tet)",
+        "defaultValue": "tet",
         "constraints": {
-          "required": true
+          "required": true,
+          "regex": "^[a-z0-9]{1,30}$",
+          "validationMessage": "VM name prefix must be between 1 and 30 characters long and can contain only numbers and lowercase letters (e.g. tet)"
         }
       },
       {
         "name": "adminUsername",
         "type": "Microsoft.Compute.UserNameTextBox",
-        "label": "Username",
-        "toolTip": "Administrative username for the virtual machine ('admin' is a reserved id).",
+        "label": "Admin Username",
+        "toolTip": "Admin username for the virtual machines",
+        "defaultValue": "azureuser",
+        "constraints": {
+          "required": true
+        },
         "osPlatform": "Linux"
       },
       {
-          "name": "SSHCredentials",
-          "type": "Microsoft.Compute.CredentialsCombo",
-          "label": {
-              "authenticationType": "Authentication type",
-              "password": "Password",
-              "confirmPassword": "Confirm password",
-              "sshPublicKey": "SSH public key"
-          },
-          "toolTip": {
-              "authenticationType": "Authentication Type for the Linux Virtual Machine",
-              "password": "Password for the Virtual Machine",
-              "sshPublicKey": "SSH Public Key for the Virtual Machine"
-          },
-          "constraints": {
-              "required": true
-          },
-          "options": {
-              "hideConfirmation": false
-          },
-          "osPlatform": "Linux"
-      },
-      {
-        "name": "ftdAdminPasswd",
-        "type": "Microsoft.Common.TextBox",
-        "label": "Password for Admin account",
-        "defaultValue": "",
-        "toolTip": "Password that will be used with FTD account 'admin'.",
+        "name": "adminCredentials",
+        "type": "Microsoft.Compute.CredentialsCombo",
+        "label": {
+          "authenticationType": "Authentication Type",
+          "password": "Admin Password",
+          "confirmPassword": "Confirm Password",
+          "sshPublicKey": "SSH Public Key"
+        },
+        "toolTip": {
+          "authenticationType": "Which authentication type to use when connecting to the virtual machines: Password or SSH Public Key",
+          "password": "Admin password for the virtual machines",
+          "sshPublicKey": "Valid SSH public key that will be included on all nodes in the Tetration deployment. The OpenSSH public key can be generated with tools like ssh-keygen on Linux or OS X and will look like 'ssh-rsa AAAAB3...'"
+        },
         "constraints": {
-          "required": false
-        }
-      },
-      {
-        "name": "fmcIpAddress",
-        "type": "Microsoft.Common.TextBox",
-        "label": "FMC IP address",
-        "defaultValue": "",
-        "toolTip": "IP address of the FMC or the string DONTRESOLVE if NAT Id will be used",
-        "constraints": {
-          "required": false
-        }
-      },
-      {
-        "name": "fmcRegKey",
-        "type": "Microsoft.Common.TextBox",
-        "label": "FMC registration key",
-        "defaultValue": "",
-        "toolTip": "The registration key that will be used on the FMC when registering this FTDv",
-        "constraints": {
-          "required": false
-        }
-      },
-      {
-        "name": "fmcNatId",
-        "type": "Microsoft.Common.TextBox",
-        "label": "FMC registration NAT id",
-        "defaultValue": "",
-        "toolTip": "The NAT id that will be used on the FMC when registering this FTDv",
-        "constraints": {
-        }
+          "required": true
+        },
+        "options": {
+          "hideConfirmation": false
+        },
+        "osPlatform": "Linux"
       }
     ],
     "steps": [
       {
-        "name": "ciscoFTDvConfig",
-        "label": "Cisco FTDv settings",
+        "name": "OrchestrationConfig",
+        "label": "Orchestration Server",
         "subLabel": {
-          "preValidation": "Configure the FTDv settings",
+          "preValidation": "Configure Orchestration Server",
           "postValidation": "Done"
         },
-        "bladeTitle": "Cisco FTDv settings",
+        "bladeTitle": "Orchestration Server settings",
         "elements": [
           {
-            "name": "Size",
+            "name": "publicIP",
+            "type": "Microsoft.Network.PublicIpAddressCombo",
+            "label": {
+              "publicIpAddress": "Public IP address name",
+              "domainNameLabel": "Domain name label"
+            },
+            "toolTip": {
+              "publicIpAddress": "Name of the public IP address object",
+              "domainNameLabel": "DNS prefix to use for the public IP address (e.g. [dnsPrefix].region.cloudapp.azure.com)"
+            },
+            "defaultValue": {
+              "publicIpAddressName": "publicip-tet-orch",
+              "domainNameLabel": ""
+            },
+            "constraints": {
+              "required": {
+                "domainNameLabel": true
+              }
+            },
+            "options": {
+              "hideNone": true,
+              "hideDomainNameLabel": false,
+              "hideExisting": true
+            }
+          },
+          {
+            "name": "OrchVmSize",
             "type": "Microsoft.Compute.SizeSelector",
-            "label": "Virtual machine size",
-            "toolTip": "The size of virtual machine to provision.",
+            "label": "Orchestration VM Size",
+            "toolTip": "Size of the Orchestration Server",
             "recommendedSizes": [
-              "Standard_D3_v2"
+              "Standard_DS2_v2"
             ],
             "constraints": {
               "allowedSizes": [
-                "Standard_D3",
-                "Standard_D3_v2"
+                "Standard_DS2_v2",
+                "Standard_DS3_v2",
+                "Standard_DS4_v2",
+                "Standard_DS5_v2",
+                "Standard_DS11_v2",
+                "Standard_DS12_v2",
+                "Standard_DS13_v2",
+                "Standard_DS14_v2",
+                "Standard_GS1",
+                "Standard_GS2",
+                "Standard_GS3",
+                "Standard_GS4",
+                "Standard_GS5"
               ]
             },
             "osPlatform": "Linux",
             "imageReference": {
-              "publisher": "cisco",
-              "offer": "cisco-ftdv",
-              "sku": "ftdv-azure-byol"
+              "publisher": "canonical",
+              "offer": "",
+              "sku": "",
+              "version": "latest"
             },
-            "count": "1"
-          },
+            "count": 1
+          }
+        ]
+      },
+      {
+        "name": "generalConfig",
+        "label": "Storage & Network Settings",
+        "subLabel": {
+          "preValidation": "Configure storage & network",
+          "postValidation": "Done"
+        },
+        "bladeTitle": "Storage & Network settings",
+        "elements": [
           {
             "name": "storageAccount",
             "type": "Microsoft.Storage.StorageAccountSelector",
             "label": "Storage account",
-            "toolTip": "Storage Account for the Virtual Machine's Disks",
+            "toolTip": "Storage Account for diagnostic logs",
             "defaultValue": {
               "type": "Standard_LRS"
             },
@@ -128,127 +145,63 @@
             }
           },
           {
-            "name": "publicIpAddress",
-            "type": "Microsoft.Network.PublicIpAddressCombo",
-            "label": {
-              "publicIpAddress": "Public IP address",
-              "domainNameLabel": "DNS label"
-            },
-            "toolTip": {
-              "domainNameLabel": "DNS label for the Virtual Machine's public IP address."
-            },
-            "defaultValue": {
-              "publicIpAddressName": ""
-            },
-            "constraints": {
-              "required": {
-                "domainNameLabel": true
-              }
-            },
-            "options": {
-              "hideNone": true
-            }
-          },
-          {
             "name": "virtualNetwork",
             "type": "Microsoft.Network.VirtualNetworkCombo",
             "label": {
-                "virtualNetwork": "Virtual network",
-                "subnets": "Subnets"
+              "virtualNetwork": "Virtual network",
+              "subnets": "Subnets"
             },
             "toolTip": {
-                "virtualNetwork": "Virtual Network Name",
-                "subnets": "Subnets requied for the Cisco FTDv solution"
+              "virtualNetwork": "Tetration servers must be deployed into a new virtual network",
+              "subnets": "The deployment will create two subnets putting the servers into one and leaving the second one empty for deploying the Tetration Services."
             },
             "defaultValue": {
-                "name": "vnet01",
-                "addressPrefixSize": "/16"
+              "name": "vnet-tetration",
+              "addressPrefixSize": "/16"
             },
             "constraints": {
-                "minAddressPrefixSize": "/24"
+              "minAddressPrefixSize": "/22"
             },
             "subnets": {
-                "subnet1": {
-                    "label": "Management Subnet",
-                    "defaultValue": {
-                      "name": "mgmt",
-                      "addressPrefixSize": "/24"
-                    },
-                    "constraints": {
-                        "minAddressPrefixSize": "/29",
-                        "minAddressCount": 1,
-                        "requireContiguousAddresses": false
-                    }
+              "subnet1": {
+                "label": "Subnet for Orchestration Servers",
+                "defaultValue": {
+                  "name": "subnet-orchestration-servers",
+                  "addressPrefixSize": "/24"
                 },
-                "subnet2": {
-                    "label": "Diagnostic Subnet",
-                    "defaultValue": {
-                      "name": "diag",
-                      "addressPrefixSize": "/24"
-                    },
-                    "constraints": {
-                        "minAddressPrefixSize": "/29",
-                        "minAddressCount": 1,
-                        "requireContiguousAddresses": false
-                    }
-                },
-                "subnet3": {
-                    "label": "Traffic Subnet - FTDv Gig0/0",
-                    "defaultValue": {
-                      "name": "outside",
-                      "addressPrefixSize": "/24"
-                    },
-                    "constraints": {
-                        "minAddressPrefixSize": "/29",
-                        "minAddressCount": 1,
-                        "requireContiguousAddresses": false
-                    }
-                },
-                "subnet4": {
-                    "label": "Traffic Subnet - FTDv Gig0/1",
-                    "defaultValue": {
-                      "name": "inside",
-                      "addressPrefixSize": "/24"
-                    },
-                    "constraints": {
-                        "minAddressPrefixSize": "/29",
-                        "minAddressCount": 1,
-                        "requireContiguousAddresses": false
-                    }
+                "constraints": {
+                  "minAddressPrefixSize": "/24",
+                  "minAddressCount": "[add(steps('ossConfig').ossCount,5)]",
+                  "requireContiguousAddresses": true
                 }
+              }
             }
-        }
+          }
         ]
       }
     ],
     "outputs": {
-      "vmName": "[basics('Name')]",
-      "adminUsername": "[basics('adminUsername')]",
-      "adminPassword": "[basics('SSHCredentials').password]",
-      "sshPublicKey": "[basics('SSHCredentials').sshPublicKey]",
-      "authenticationType" : "[basics('SSHCredentials').authenticationType]",
-      "ftdAdminPasswd" : "[basics('ftdAdminPasswd')]",
-      "fmcIpAddress" : "[basics('fmcIpAddress')]",
-      "fmcRegKey" : "[basics('fmcRegKey')]",
-      "fmcNatId" : "[basics('fmcNatId')]",
-      "vmSize": "[steps('ciscoFTDvConfig').Size]",
       "location": "[location()]",
-      "newStorageAccountName" : "[steps('ciscoFTDvConfig').storageAccount.name]",
-      "storageAccountType" : "[steps('ciscoFTDvConfig').storageAccount.type]",
-      "storageAccountNewOrExisting" : "[steps('ciscoFTDvConfig').storageAccount.newOrExisting]",
-      "storageAccountExistingRG" : "[steps('ciscoFTDvConfig').storageAccount.resourceGroup]",
-      "publicIPAddressName" : "[steps('ciscoFTDvConfig').publicIpAddress.name]",
-      "publicIPDnsName" : "[steps('ciscoFTDvConfig').publicIpAddress.domainNameLabel]",
-      "publicIPNewOrExisting" : "[steps('ciscoFTDvConfig').publicIpAddress.newOrExistingOrNone]",
-      "publicIPExistingRGName" : "[steps('ciscoFTDvConfig').publicIpAddress.resourceGroup]",
-      "virtualNetworkName" : "[steps('ciscoFTDvConfig').virtualNetwork.name]",
-      "virtualNetworkAddressPrefix" : "[steps('ciscoFTDvConfig').virtualNetwork.addressPrefix]",
-      "Subnet1Name" : "[steps('ciscoFTDvConfig').virtualNetwork.subnets.subnet1.name]",
-      "Subnet1Prefix" : "[steps('ciscoFTDvConfig').virtualNetwork.subnets.subnet1.addressPrefix]",
-      "vnetNewOrExisting" : "[steps('ciscoFTDvConfig').virtualNetwork.newOrExisting]",
-      "virtualNetworkExistingRGName" : "[steps('ciscoFTDvConfig').virtualNetwork.resourceGroup]",
-      "subnet1StartAddress" : "[steps('ciscoFTDvConfig').virtualNetwork.subnets.subnet1.startAddress]"
-      
+      "uniqueNamePrefix": "[basics('uniqueNamePrefix')]",
+      "adminUsername": "[basics('adminUsername')]",
+      "adminPassword": "[basics('adminCredentials').password]",
+      "sshPublicKey": "[basics('adminCredentials').sshPublicKey]",
+      "authenticationType": "[basics('adminCredentials').authenticationType]",
+      "publicIPNewOrExisting": "[steps('OrchestrationConfig').publicIP.newOrExistingOrNone]",
+      "publicIPExistingRGName": "[steps('OrchestrationConfig').publicIP.resourceGroup]",
+      "publicIPAddressName": "[steps('OrchestrationConfig').publicIP.name]",
+      "publicIPDnsName": "[steps('OrchetrationConfig').publicIP.domainNameLabel]",
+      "vmSize": "[steps('OrchestrationConfig').OrchVmSize]",
+      "newStorageAccountName" : "[steps('generalConfig').storageAccount.name]",
+      "storageAccountExistingRG": "[steps('generalConfig').storageAccount.resourceGroup]",
+      "storageAccountNewOrExisting" : "[steps('generalConfig').storageAccount.newOrExisting]",
+      "storageAccountType": "[steps('generalConfig').storageAccount.type]",
+      "virtualNetworkExistingRGName": "[steps('generalConfig').virtualNetwork.resourceGroup]",
+      "virtualNetworkName": "[steps('generalConfig').virtualNetwork.name]",
+      "vnetNewOrExisting": "[steps('generalConfig').virtualNetwork.newOrExisting]",
+      "virtualNetworkAddressPrefix": "[steps('generalConfig').virtualNetwork.addressPrefix]",
+      "subnetName": "[steps('generalConfig').virtualNetwork.subnets.subnet1.name]",
+      "subnetPrefix": "[steps('generalConfig').virtualNetwork.subnets.subnet1.addressPrefix]"
     }
   }
 }

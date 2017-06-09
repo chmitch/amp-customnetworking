@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {        
-		"artifactsBaseUrl": {
+		    "artifactsBaseUrl": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
@@ -17,7 +17,7 @@
                 "description": "Deployment location"
             }
         },
-		"uniqueNamePrefix": {
+		    "uniqueNamePrefix": {
 			"type": "string",
 			"defaultValue": "tet"
 		},
@@ -177,14 +177,13 @@
                 "description" : "Size of the Virtual Machine"
             }
         },
-		"sizeOfDataDiskInGB": {
+		    "sizeOfDataDiskInGB": {
 			"type": "int",
 			"defaultValue": 100,
 			"metadata": {
 				"description":  "Size of the data disk in GB"
 			}
 		},
-
         "mountPointFolder" : {
             "type": "string", 
             "defaultValue": "TetrationData",
