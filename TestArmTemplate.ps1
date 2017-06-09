@@ -4,7 +4,7 @@
 $subscription = "Microsoft Azure Internal Consumption"
 
 #this prefix is used to help make names of vms storage accounts etc unique.  Keep if 5 characters or less.
-$envPrefixName = "cgmtet5" 
+$envPrefixName = "cgmtet20" 
 $rgname = $envPrefixName + "rg"
 
 $location = "East US"
@@ -46,7 +46,6 @@ New-AzureRmResourceGroupDeployment `
     -vnetNewOrExisting $vnetNewOrExisting `
     -subnetPrefix $subnetPrefix `
     -subnetName $SubnetName `
-    -subnetStartAddress $subnetStartAddress `
     -adminUsername $adminUsername `
     -newStorageAccountName $newStorageAccountName `
     -storageAccountType $storageAccountType `

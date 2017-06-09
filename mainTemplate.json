@@ -63,12 +63,6 @@
                 "description": "Management Subnet Name"
             }
         },
-        "subnetStartAddress" : {
-            "type" : "string",
-            "metadata" : {
-                "description" : "Management Subnet IP Address"
-            }
-        },
         "adminUsername": {
             "type": "string",
             "defaultValue": "",
@@ -507,7 +501,7 @@
                     ]
                 },
                 "protectedSettings": {
-                    "commandToExecute": "[concat(variables('installCommand'))]"
+                    "commandToExecute": "variables('installCommand')"
                 }
             }
         }
