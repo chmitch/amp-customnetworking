@@ -169,6 +169,7 @@
               "subnet1": {
                 "label": "Subnet for Tetration Resources",
                 "defaultValue": {
+                  "name": "default",
                   "addressPrefixSize": "/24"
                 },
                 "constraints": {
@@ -202,7 +203,7 @@
       "virtualNetworkName": "[steps('generalConfig').virtualNetwork.name]",
       "vnetNewOrExisting": "[steps('generalConfig').virtualNetwork.vnetNewOrExisting]",
       "virtualNetworkAddressPrefix": "[steps('generalConfig').virtualNetwork.virtualNetworkAddressPrefix]",
-      "subnetName": "default",
+      "subnetName": "[steps('generalConfig').virtualNetwork.subnet1.subnetName]",
       "subnetPrefix": "[steps('generalConfig').virtualNetwork.subnet1.subnetPrefix]"
     }
   }
