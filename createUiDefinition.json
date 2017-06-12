@@ -20,7 +20,7 @@
         "type": "Microsoft.Compute.UserNameTextBox",
         "label": "Admin Username",
         "toolTip": "Admin username for the virtual machines",
-        "defaultValue": "azureuser",
+        "defaultValue": "tetter",
         "constraints": {
           "required": true
         },
