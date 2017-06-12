@@ -156,25 +156,9 @@
               "subnets": "The deployment will create one subnet that will contain the Orchestrator cluster and Tetration services."
             },
             "defaultValue": {
-              "name": "vnet-tetration",
-              "addressPrefixSize": "/16"
+              "name": "vnet-tetration"
             },
             "constraints": {
-              "minAddressPrefixSize": "/22"
-            },
-            "subnets": {
-              "subnet1": {
-                "label": "Subnet for Orchestration cluster and Tetration services",
-                "defaultValue": {
-                  "name": "subnet-orchestration-servers",
-                  "addressPrefixSize": "/16"
-                },
-                "constraints": {
-                  "minAddressPrefixSize": "/22",
-                  "minAddressCount": 2,
-                  "requireContiguousAddresses": true
-                }
-              }
             }
           }
         ]
@@ -192,16 +176,16 @@
       "publicIPAddressName": "[steps('OrchestrationConfig').publicIP.name]",
       "publicIPDnsName": "[steps('OrchestrationConfig').publicIP.domainNameLabel]",
       "vmSize": "[steps('OrchestrationConfig').OrchVmSize]",
-      "newStorageAccountName" : "[steps('generalConfig').storageAccount.name]",
+      "newStorageAccountName": "[steps('generalConfig').storageAccount.name]",
       "storageAccountExistingRG": "[steps('generalConfig').storageAccount.resourceGroup]",
-      "storageAccountNewOrExisting" : "[steps('generalConfig').storageAccount.newOrExisting]",
+      "storageAccountNewOrExisting": "[steps('generalConfig').storageAccount.newOrExisting]",
       "storageAccountType": "[steps('generalConfig').storageAccount.type]",
       "virtualNetworkExistingRGName": "[steps('generalConfig').virtualNetwork.resourceGroup]",
       "virtualNetworkName": "[steps('generalConfig').virtualNetwork.name]",
       "vnetNewOrExisting": "[steps('generalConfig').virtualNetwork.newOrExisting]",
-      "virtualNetworkAddressPrefix": "[steps('generalConfig').virtualNetwork.addressPrefix]",
-      "subnetName": "[steps('generalConfig').virtualNetwork.subnets.subnet1.name]",
-      "subnetPrefix": "[steps('generalConfig').virtualNetwork.subnets.subnet1.addressPrefix]"
+      "virtualNetworkAddressPrefix": "24",
+      "subnetName": "default",
+      "subnetPrefix": "24"
     }
   }
 }

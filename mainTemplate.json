@@ -206,7 +206,7 @@
 	"installScriptName": "centosftab-copymetadata.sh",
 	"installScriptUri": "[concat(variables('baseUrl'), variables('installScriptName'))]",
 	"mountPointFolder": "TetrationData",
-	"installCommand": "[concat('sudo bash ', variables('installScriptName'), ' ', variables('publicIPExistingRGName'), ' ' , variables('tempLocation'), ' ', parameters('virtualNetworkName'), ' ', parameters('virtualNetworkAddressPrefix'), ' ',  variables('subnetRef'), ' ', variables('subscriptionId'), ' ', parameters('newStorageAccountName'), ' ', variables('mountPointFolder'), ' ', variables('vmStaticAddress'))]",
+	"installCommand": "[concat('sudo bash ', variables('installScriptName'), ' ', parameters('publicIPExistingRGName'), ' ' , variables('tempLocation'), ' ', parameters('virtualNetworkName'), ' ', parameters('virtualNetworkAddressPrefix'), ' ',  variables('subnetRef'), ' ', variables('subscriptionId'), ' ', parameters('newStorageAccountName'), ' ', variables('mountPointFolder'), ' ', variables('vmStaticAddress'))]",
 	"osProfilesshPublicKey": {
       "computername": "[variables('vmName')]",
       "adminUsername": "[parameters('adminUsername')]",
