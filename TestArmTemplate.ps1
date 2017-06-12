@@ -1,4 +1,4 @@
-﻿#Login-AzureRmAccount
+﻿Login-AzureRmAccount
 
 #You'll need to change this to be the name of your subscription
 $subscription = "Microsoft Azure Internal Consumption"
@@ -39,7 +39,7 @@ New-AzureRmResourceGroup -Name $rgname -Location $location
 New-AzureRmResourceGroupDeployment `
     -ResourceGroupName $rgname  `
     -DeploymentDebugLogLevel All `
--TemplateFile C:\projects\amp-customnetworking\mainTemplate.json `
+-TemplateUri https://raw.githubusercontent.com/chmitch/tetration/master/mainTemplate.json `
     -location $location `
     -virtualNetworkName $virtualNetworkName `
     -virtualNetworkExistingRGName $virtualNetworkExistingRGName `
