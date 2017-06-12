@@ -146,21 +146,13 @@
           },
           {
             "name": "virtualNetwork",
-            "type": "Microsoft.Network.VirtualNetworkCombo",
-            "label": {
-              "virtualNetwork": "Virtual network",
-              "subnets": "Subnets"
-            },
-            "toolTip": {
-              "virtualNetwork": "Tetration servers must be deployed into a new virtual network",
-              "subnets": "The deployment will create one subnet that will contain the Orchestrator cluster and Tetration services."
-            },
-            "defaultValue": {
-              "name": "vnet-tetration"
-            },
-            "constraints": {
-              "minAddressPrefixSize": "24"
-            }
+            "type": "Microsoft.Common.TextBox",
+            "label": "Virtual Network Name",
+            "defaultValue": "tetrationNet",
+            "toolTip": "This value needs to be unique within the Resource Group",
+            "constraints": {},
+            "options": {},
+            "visible": true
           }
         ]
       }
@@ -183,7 +175,7 @@
       "storageAccountType": "[steps('generalConfig').storageAccount.type]",
       "virtualNetworkExistingRGName": "[steps('generalConfig').virtualNetwork.resourceGroup]",
       "virtualNetworkName": "[steps('generalConfig').virtualNetwork.name]",
-      "vnetNewOrExisting": "[steps('generalConfig').virtualNetwork.newOrExisting]",
+      "vnetNewOrExisting": "New",
       "virtualNetworkAddressPrefix": "24",
       "subnetName": "default",
       "subnetPrefix": "24"
