@@ -146,13 +146,39 @@
           },
           {
             "name": "virtualNetwork",
-            "type": "Microsoft.Common.TextBox",
-            "label": "Virtual Network Name",
-            "defaultValue": "tetrationNet",
-            "toolTip": "This value needs to be unique within the Resource Group",
-            "constraints": {},
-            "options": {},
-            "visible": true
+            "type": "Microsoft.Network.VirtualNetworkCombo",
+            "label": {
+              "virtualNetwork": "Virtual Network",
+              "subnets": "Subnets"
+            },
+            "toolTip": {
+              "virtualNetwork": "Virtual Network Name",
+              "subnets": "Subnets requied for the Cisco Tetration solution"
+            },
+            "defaultValue": {
+              "name": "tetrationNet",
+              "addressPrefixSize": "/24"
+            },
+            "constraints": {
+              "minAddressPrefixSize": "/24"
+            },
+            "options": {
+              "hideExisting": false
+            },
+            "subnets": {
+              "subnet1": {
+                "label": "Subnet for Orchestrator Cluster and Tetration Servers",
+                "defaultValue": {
+                  "name": "default",
+                  "addressPrefixSize": "/24"
+                },
+                "constraints": {
+                  "minAddressPrefixSize": "/24",
+                  "minAddressCount": 253,
+                  "requireContiguousAddresses": true
+                }
+              }
+            }
           }
         ]
       }
@@ -175,10 +201,10 @@
       "storageAccountType": "[steps('generalConfig').storageAccount.type]",
       "virtualNetworkExistingRGName": "[steps('generalConfig').virtualNetwork.resourceGroup]",
       "virtualNetworkName": "[steps('generalConfig').virtualNetwork.name]",
-      "vnetNewOrExisting": "New",
-      "virtualNetworkAddressPrefix": "24",
-      "subnetName": "default",
-      "subnetPrefix": "24"
+      "vnetNewOrExisting": "[steps('generalConfig').virtualNetwork.vnetNewOrExisting]",
+      "virtualNetworkAddressPrefix": "[steps('generalConfig').virtualNetwork.virtualNetworkAddressPrefix]",
+      "subnetName": "[steps('generalConfig').virtualNetwork.subnet1.subnetName]",
+      "subnetPrefix": "[steps('generalConfig').virtualNetwork.subnet1.subnetPrefix]"
     }
   }
 }
