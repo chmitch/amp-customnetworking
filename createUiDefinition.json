@@ -163,7 +163,7 @@
               "minAddressPrefixSize": "/24"
             },
             "options": {
-              "hideExisting": false
+              "hideExisting": true
             },
             "subnets": {
               "subnet1": {
@@ -174,7 +174,7 @@
                 },
                 "constraints": {
                   "minAddressPrefixSize": "/24",
-                  "minAddressCount": 253,
+                  "minAddressCount": 252,
                   "requireContiguousAddresses": true
                 }
               }
