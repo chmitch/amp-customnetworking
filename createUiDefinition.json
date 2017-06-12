@@ -159,6 +159,7 @@
               "name": "vnet-tetration"
             },
             "constraints": {
+              "minAddressPrefixSize": "24"
             }
           }
         ]
