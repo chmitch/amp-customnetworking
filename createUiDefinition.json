@@ -201,7 +201,8 @@
       "vnetNewOrExisting": "[steps('generalConfig').virtualNetwork.newOrExisting]",
       "virtualNetworkAddressPrefix": "[steps('generalConfig').virtualNetwork.addressPrefix]",
       "subnetName": "[steps('generalConfig').virtualNetwork.subnets.subnet1.name]",
-      "subnetPrefix": "[steps('generalConfig').virtualNetwork.subnets.subnet1.addressPrefix]"
+      "subnetPrefix": "[steps('generalConfig').virtualNetwork.subnets.subnet1.addressPrefix]",
+	  "sizeOfDataDiskInGB": 100
     }
   }
 }
