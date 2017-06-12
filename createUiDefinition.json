@@ -190,7 +190,7 @@
       "publicIPNewOrExisting": "[steps('OrchestrationConfig').publicIP.newOrExistingOrNone]",
       "publicIPExistingRGName": "[steps('OrchestrationConfig').publicIP.resourceGroup]",
       "publicIPAddressName": "[steps('OrchestrationConfig').publicIP.name]",
-      "publicIPDnsName": "[steps('OrchetrationConfig').publicIP.domainNameLabel]",
+      "publicIPDnsName": "[steps('OrchestrationConfig').publicIP.domainNameLabel]",
       "vmSize": "[steps('OrchestrationConfig').OrchVmSize]",
       "newStorageAccountName" : "[steps('generalConfig').storageAccount.name]",
       "storageAccountExistingRG": "[steps('generalConfig').storageAccount.resourceGroup]",
@@ -201,8 +201,7 @@
       "vnetNewOrExisting": "[steps('generalConfig').virtualNetwork.newOrExisting]",
       "virtualNetworkAddressPrefix": "[steps('generalConfig').virtualNetwork.addressPrefix]",
       "subnetName": "[steps('generalConfig').virtualNetwork.subnets.subnet1.name]",
-      "subnetPrefix": "[steps('generalConfig').virtualNetwork.subnets.subnet1.addressPrefix]",
-	  "sizeOfDataDiskInGB": 100
+      "subnetPrefix": "[steps('generalConfig').virtualNetwork.subnets.subnet1.addressPrefix]"
     }
   }
 }
