@@ -1,10 +1,10 @@
-﻿Login-AzureRmAccount
+﻿#Login-AzureRmAccount
 
 #You'll need to change this to be the name of your subscription
 $subscription = "Microsoft Azure Internal Consumption"
 
 #this prefix is used to help make names of vms storage accounts etc unique.  Keep if 5 characters or less.
-$envPrefixName = "cgmtet41" 
+$envPrefixName = "cgmtet42" 
 $rgname = $envPrefixName + "rg"
 
 $location = "East US"

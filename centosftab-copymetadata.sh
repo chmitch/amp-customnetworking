@@ -15,9 +15,11 @@ mp=$8
 # masterIP
 masterIP=$9 
 
+subnetname=$10
+
 # write content to file in /etc/metadata
 
-printf '{"deploymentName":"%s", "region":"%s","vnet":"%s","cdir":"%s","subnet":"%s","subscription":"%s","storagename":"%s"}\n' "$deploymentName" "$region" "$vnet" "$cdir" "$subnet" "$subscription" "$storagename" >> /etc/orca-master.json
+printf '{"deploymentName":"%s", "region":"%s","vnet":"%s","cdir":"%s","subnet":"%s","subscription":"%s","storagename":"%s", "subnetname":"%s"}\n' "$deploymentName" "$region" "$vnet" "$cdir" "$subnet" "$subscription" "$storagename" "$subnetname">> /etc/orca-master.json
 
 # begin mounting disk
 
