@@ -167,14 +167,14 @@
             },
             "subnets": {
               "subnet1": {
-                "label": "Subnet for Orchestrator Cluster and Tetration Servers",
+                "label": "Subnet for Tetration Resources",
                 "defaultValue": {
                   "name": "default",
                   "addressPrefixSize": "/24"
                 },
                 "constraints": {
                   "minAddressPrefixSize": "/24",
-                  "minAddressCount": 252,
+                  "minAddressCount": 2,
                   "requireContiguousAddresses": true
                 }
               }
