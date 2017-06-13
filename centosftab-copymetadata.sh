@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "Argument List is $*"
+
 deploymentName=$1
 region=$2
 vnet=$3
@@ -15,12 +17,15 @@ mp=$8
 # masterIP
 masterIP=$9 
 
-shift 
+#shift until there is only one parameter left.
+while (( $# > 1 ))
+do
+  shift
+done
 
-subnetname=$9
+subnetname=$1
 
-echo "Argument List is $*"
-echo "Argument 9 after shift is $9"
+echo "The last argument after shifting is $1"
 
 # write content to file in /etc/metadata
 
