@@ -201,10 +201,10 @@
       "storageAccountType": "[steps('generalConfig').storageAccount.type]",
       "virtualNetworkExistingRGName": "[steps('generalConfig').virtualNetwork.resourceGroup]",
       "virtualNetworkName": "[steps('generalConfig').virtualNetwork.name]",
-      "vnetNewOrExisting": "[steps('generalConfig').virtualNetwork.vnetNewOrExisting]",
-      "virtualNetworkAddressPrefix": "[steps('generalConfig').virtualNetwork.virtualNetworkAddressPrefix]",
-      "subnetName": "[steps('generalConfig').virtualNetwork.subnet1.subnetName]",
-      "subnetPrefix": "[steps('generalConfig').virtualNetwork.subnet1.subnetPrefix]"
+      "vnetNewOrExisting": "[steps('generalConfig').virtualNetwork.newOrExisting]",
+      "virtualNetworkAddressPrefix": "[steps('generalConfig').virtualNetwork.addressPrefix]",
+      "subnetName": "[steps('generalConfig').virtualNetwork.subnets.subnet1.name]",
+      "subnetPrefix": "[steps('generalConfig').virtualNetwork.subnets.subnet1.addressPrefix]"
     }
   }
 }
