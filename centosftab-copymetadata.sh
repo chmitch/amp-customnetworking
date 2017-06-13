@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 deploymentName=$1
@@ -16,11 +15,12 @@ mp=$8
 # masterIP
 masterIP=$9 
 
-subnetname=${10}
+shift 
 
-#outputting arguments for log file.
+subnetname=$9
+
 echo "Argument List is $*"
-echo "Argument 10 is ${10}"
+echo "Argument 9 after shift is $9"
 
 # write content to file in /etc/metadata
 
