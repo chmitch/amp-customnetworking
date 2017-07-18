@@ -30,7 +30,7 @@
   },
   "variables" : {
     "vnetID" : "[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]",
-    "subnet1" : "[concat(variables('vnetID'),'/subnets/',parameters('publicSubnetName'))]"
+    "subnet1" : "[concat(variables('vnetID'),'/subnets/',parameters('publicSubnetName'))]",
 	"subnet2" : "[concat(variables('vnetID'),'/subnets/',parameters('privateSubnetName'))]
     },
   "resources": [

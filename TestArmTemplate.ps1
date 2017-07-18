@@ -10,10 +10,12 @@ $rgname = $envPrefixName + "rg"
 $location = "East US"
 $virtualNetworkName = $envPrefixName + "vnet"
 $virtualNetworkExistingRGName = $rgname
-$virtualNetworkAddressPrefix = "10.1.0.0/24"
+$virtualNetworkAddressPrefix = "10.1.0.0/16"
 $vnetNewOrExisting = "new"
-$subnetPrefix = "10.1.0.0/24"
-$subnetName = "tetsubnet"
+$publicSubnetPrefix = "10.1.0.0/24"
+$publicSubnetName = "tetsubnet"
+$privateSubnetPrefix = "10.1.1.0/24"
+$privateSubnetName = "tetsubnet"
 $subnetStartAddress = "10.1.0.1"
 $adminUsername = "tetadmin"
 #note put a real password in here
@@ -44,8 +46,10 @@ New-AzureRmResourceGroupDeployment `
     -virtualNetworkName $virtualNetworkName `
     -virtualNetworkExistingRGName $virtualNetworkExistingRGName `
     -vnetNewOrExisting $vnetNewOrExisting `
-    -subnetPrefix $subnetPrefix `
-    -subnetName $subnetName `
+    -publicSubnetPrefix $publicSubnetPrefix `
+    -publicSubnetName $publicSubnetName `
+    -privateSubnetPrefix $privateSubnetPrefix `
+    -privateSubnetName $privateSubnetName `
     -adminUsername $adminUsername `
     -newStorageAccountName $newStorageAccountName `
     -storageAccountType $storageAccountType `
