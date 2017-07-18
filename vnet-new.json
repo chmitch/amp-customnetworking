@@ -32,7 +32,7 @@
     "vnetID" : "[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]",
     "subnet1" : "[concat(variables('vnetID'),'/subnets/',parameters('publicSubnetName'))]",
 	"subnet2" : "[concat(variables('vnetID'),'/subnets/',parameters('privateSubnetName'))]"
-    },
+  },
   "resources": [
         {
             "apiVersion": "2015-06-15",
