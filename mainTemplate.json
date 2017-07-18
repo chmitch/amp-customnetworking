@@ -157,18 +157,32 @@
         "description": "Virtual Network Address prefix"
       }
     },
-    "subnetName": {
+    "publicSubnetName": {
       "type": "string",
       "defaultValue": "default",
       "metadata": {
-        "description": "Management Subnet Name"
+        "description": "External Subnet Name"
       }
     },
-    "subnetPrefix": {
+    "publicSubnetPrefix": {
       "type": "string",
       "defaultValue": "10.1.0.0/24",
       "metadata": {
-        "description": "Management Subnet Prefix"
+        "description": "External Subnet Prefix"
+      }
+    },
+    "privateSubnetName": {
+      "type": "string",
+      "defaultValue": "default",
+      "metadata": {
+        "description": "Backend Subnet Name"
+      }
+    },
+    "privateSubnetPrefix": {
+      "type": "string",
+      "defaultValue": "10.2.0.0/24",
+      "metadata": {
+        "description": "Backend Subnet Prefix"
       }
     },
     "sizeOfDataDiskInGB": {
@@ -186,13 +200,14 @@
     "baseUrl": "[concat(parameters('artifactsBaseUrl'),'/')]",
     "vmStorageAccountContainerName": "vhds",
     "vmName": "orchestrator1",
-    "subnetAddressArray": "[split(parameters('subnetPrefix'),'.')]",
+    "subnetAddressArray": "[split(parameters('publicSubnetPrefix'),'.')]",
     "element1": "[string(variables('subnetAddressArray')[0])]",
     "element2": "[string(variables('subnetAddressArray')[1])]",
     "element3": "[string(variables('subnetAddressArray')[2])]",
     "vmStaticAddress": "[concat(variables('element1'), '.', variables('element2'), '.', variables('element3'), '.252')]",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
-    "subnetRef": "[concat(variables('vnetID'),'/subnets/', parameters('subnetName'))]",
+    "publicSubnetRef": "[concat(variables('vnetID'),'/subnets/', parameters('publicSubnetName'))]",
+    "privateSubnetRef": "[concat(variables('vnetID'),'/subnets/', parameters('privateSubnetName'))]",
     "nsgname": "[concat(variables('vmName'),'-SecurityGroup')]",
     "apiVer": "2017-03-01",
     "publicIPAddressType": "Dynamic",
@@ -206,7 +221,7 @@
 	"installScriptName": "centosftab-copymetadata.sh",
 	"installScriptUri": "[concat(variables('baseUrl'), variables('installScriptName'))]",
 	"mountPointFolder": "TetrationData",
-	"installCommand": "[concat('sudo bash ', variables('installScriptName'), ' ', parameters('publicIPExistingRGName'), ' ' , variables('tempLocation'), ' ', parameters('virtualNetworkName'), ' ', parameters('virtualNetworkAddressPrefix'), ' ',  variables('subnetRef'), ' ', variables('subscriptionId'), ' ', parameters('newStorageAccountName'), ' ', variables('mountPointFolder'), ' ', variables('vmStaticAddress'), ' ', parameters('subnetName'))]",
+	"installCommand": "[concat('sudo bash ', variables('installScriptName'), ' ', parameters('publicIPExistingRGName'), ' ' , variables('tempLocation'), ' ', parameters('virtualNetworkName'), ' ', parameters('virtualNetworkAddressPrefix'), ' ',  variables('subnetRef'), ' ', variables('subscriptionId'), ' ', parameters('newStorageAccountName'), ' ', variables('mountPointFolder'), ' ', variables('vmStaticAddress'), ' ', parameters('publicSubnetName'), ' ', parameters('privateSubnetName'))]",
 	"osProfilesshPublicKey": {
       "computername": "[variables('vmName')]",
       "adminUsername": "[parameters('adminUsername')]",
@@ -358,11 +373,17 @@
           "virtualNetworkAddressPrefix": {
             "value": "[parameters('virtualNetworkAddressPrefix')]"
           },
-          "subnetName": {
-            "value": "[parameters('subnetName')]"
+          "publicSubnetName": {
+            "value": "[parameters('publicSubnetName')]"
           },
-          "subnetPrefix": {
-            "value": "[parameters('subnetPrefix')]"
+          "publicSubnetPrefix": {
+            "value": "[parameters('publicSubnetPrefix')]"
+          },
+          "privateSubnetName": {
+            "value": "[parameters('privateSubnetName')]"
+          },
+          "privateSubnetPrefix": {
+            "value": "[parameters('privateSubnetPrefix')]"
           },
           "vnetExistingRGName": {
             "value": "[parameters('virtualNetworkExistingRGName')]"

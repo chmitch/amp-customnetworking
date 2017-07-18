@@ -11,20 +11,27 @@
     "virtualNetworkAddressPrefix": {
       "type": "string"
     },
-    "subnetName": {
+    "publicSubnetName": {
       "type": "string"
     },
-    "subnetPrefix": {
+    "publicSubnetPrefix": {
       "type": "string"
     },
-    "vnetExistingRGName" : {
+    "privateSubnetName": {
+      "type": "string"
+    },
+    "privateSubnetPrefix": {
+      "type": "string"
+    },
+	"vnetExistingRGName" : {
       "type" : "string",
       "defaultValue" : ""
     }
   },
   "variables" : {
     "vnetID" : "[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]",
-    "subnet1" : "[concat(variables('vnetID'),'/subnets/',parameters('subnetName'))]"
+    "subnet1" : "[concat(variables('vnetID'),'/subnets/',parameters('publicSubnetName'))]"
+	"subnet2" : "[concat(variables('vnetID'),'/subnets/',parameters('privateSubnetName'))]
     },
   "resources": [
         {
@@ -40,9 +47,15 @@
                 },
                 "subnets": [
                     {
-                        "name": "[parameters('subnetName')]",
+                        "name": "[parameters('publicSubnetName')]",
                         "properties": {
-                            "addressPrefix": "[parameters('subnetPrefix')]"
+                            "addressPrefix": "[parameters('publicSubnetPrefix')]"
+                        }
+                    },
+					{
+                        "name": "[parameters('privateSubnetName')]",
+                        "properties": {
+                            "addressPrefix": "[parameters('privateSubnetPrefix')]"
                         }
                     }
                 ]
@@ -52,6 +65,10 @@
   "outputs": {
     "subnet1Ref": {
       "value": "[variables('subnet1')]",
+      "type": "string"
+    },
+    "subnet2Ref": {
+      "value": "[variables('subnet2')]",
       "type": "string"
     }
   }
