@@ -91,7 +91,7 @@
             "label": "Orchestration VM Size",
             "toolTip": "Size of the Orchestration Server",
             "recommendedSizes": [
-              "Standard_DS2_v2"
+              "Standard_DS3_v2"
             ],
             "constraints": {
               "allowedSizes": [
@@ -113,7 +113,7 @@
             "osPlatform": "Linux",
             "imageReference": {
               "publisher": "cisco",
-              "offer": "tetration",
+              "offer": "centos72",
               "sku": "centos72",
               "version": "latest"
             },

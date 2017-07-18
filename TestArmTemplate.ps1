@@ -30,7 +30,7 @@ $publicIPDnsName =  $envPrefixName + "dns"
 $publicIPNewOrExisting = "new"
 $publicIPExistingRGName = ""
 $baseUrl = "https://raw.githubusercontent.com/chmitch/amp-customnetworking/master" 
-$vmSize = "Standard_DS2_v2"
+$vmSize = "Standard_DS3_v2"
 
 #-TemplateUri https://raw.githubusercontent.com/chmitch/tetration/master/mainTemplate.json `
 #-TemplateFile C:\projects\tetration\mainTemplate.json `
