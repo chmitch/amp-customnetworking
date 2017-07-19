@@ -4,7 +4,7 @@
 $subscription = "Microsoft Azure Internal Consumption"
 
 #this prefix is used to help make names of vms storage accounts etc unique.  Keep if 5 characters or less.
-$envPrefixName = "cgmtet45" 
+$envPrefixName = "cgmtet48" 
 $rgname = $envPrefixName + "rg"
 
 $location = "East US"
@@ -13,10 +13,10 @@ $virtualNetworkExistingRGName = $rgname
 $virtualNetworkAddressPrefix = "10.1.0.0/16"
 $vnetNewOrExisting = "new"
 $publicSubnetPrefix = "10.1.0.0/24"
-$publicSubnetName = "tetsubnet"
+$publicSubnetName = "public-subnet"
 $privateSubnetPrefix = "10.1.1.0/24"
-$privateSubnetName = "tetsubnet"
-$subnetStartAddress = "10.1.0.1"
+$privateSubnetName = "private-subnet"
+#$subnetStartAddress = "10.1.0.1"
 $adminUsername = "tetadmin"
 #note put a real password in here
 $adminPassword = "P@ss0wrd!!!" | ConvertTo-SecureString -AsPlainText -Force     

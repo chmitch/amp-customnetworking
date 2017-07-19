@@ -23,8 +23,8 @@ do
   shift
 done
 
-privatesubnetname=$1
 publicsubnetname=$1
+privatesubnetname=$2
 
 echo "The last argument after shifting is $1"
 
