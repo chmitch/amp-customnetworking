@@ -165,7 +165,7 @@
             "options": {
               "hideExisting": true
             },
-            "subnets": {[
+            "subnets": {
               "subnet1": {
                 "label": "Internal Subnet for Tetration Resources",
                 "defaultValue": {
@@ -189,7 +189,7 @@
                   "minAddressCount": 2,
                   "requireContiguousAddresses": true
                 }
-              }]
+              }
             }
           }
         ]
