@@ -157,17 +157,17 @@
             },
             "defaultValue": {
               "name": "tetrationNet",
-              "addressPrefixSize": "/24"
+              "addressPrefixSize": "/23"
             },
             "constraints": {
-              "minAddressPrefixSize": "/24"
+              "minAddressPrefixSize": "/23"
             },
             "options": {
               "hideExisting": true
             },
-            "subnets": {
+            "subnets": {[
               "subnet1": {
-                "label": "Subnet for Tetration Resources",
+                "label": "Internal Subnet for Tetration Resources",
                 "defaultValue": {
                   "name": "default",
                   "addressPrefixSize": "/24"
@@ -177,7 +177,19 @@
                   "minAddressCount": 2,
                   "requireContiguousAddresses": true
                 }
-              }
+              },
+			  "subnet2": {
+                "label": "External Subnet for Tetration Resources",
+                "defaultValue": {
+                  "name": "default",
+                  "addressPrefixSize": "/24"
+                },
+                "constraints": {
+                  "minAddressPrefixSize": "/24",
+                  "minAddressCount": 2,
+                  "requireContiguousAddresses": true
+                }
+              }]
             }
           }
         ]
@@ -203,8 +215,10 @@
       "virtualNetworkName": "[steps('generalConfig').virtualNetwork.name]",
       "vnetNewOrExisting": "[steps('generalConfig').virtualNetwork.newOrExisting]",
       "virtualNetworkAddressPrefix": "[steps('generalConfig').virtualNetwork.addressPrefix]",
-      "subnetName": "[steps('generalConfig').virtualNetwork.subnets.subnet1.name]",
-      "subnetPrefix": "[steps('generalConfig').virtualNetwork.subnets.subnet1.addressPrefix]"
+      "publicSubnetName": "[steps('generalConfig').virtualNetwork.subnets.subnet2.name]",
+      "privateSubnetName": "[steps('generalConfig').virtualNetwork.subnets.subnet1.name]",
+      "publicSubnetPrefix": "[steps('generalConfig').virtualNetwork.subnets.subnet2.addressPrefix]",
+      "privateSubnetPrefix": "[steps('generalConfig').virtualNetwork.subnets.subnet1.addressPrefix]"
     }
   }
 }
