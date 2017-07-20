@@ -171,6 +171,9 @@
                 "defaultValue": {
                   "name": "internal",
                   "addressPrefixSize": "/24"
+                },
+                "constraints": {
+                  "minAddressPrefixSize": "/24"
                 }
               },
 			  "subnet2": {
@@ -178,6 +181,9 @@
                 "defaultValue": {
                   "name": "external",
                   "addressPrefixSize": "/24"
+                },
+                "constraints": {
+                  "minAddressPrefixSize": "/24"
                 }
               }
             }
