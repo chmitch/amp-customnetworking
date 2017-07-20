@@ -187,7 +187,7 @@
                 "constraints": {
                   "minAddressPrefixSize": "/24",
                   "minAddressCount": 2,
-                  "requireContiguousAddresses": true
+                  "requireContiguousAddresses": false
                 }
               }
             }
