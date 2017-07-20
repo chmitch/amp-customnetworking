@@ -171,11 +171,6 @@
                 "defaultValue": {
                   "name": "internal",
                   "addressPrefixSize": "/24"
-                },
-                "constraints": {
-                  "minAddressPrefixSize": "/24",
-                  "minAddressCount": 2,
-                  "requireContiguousAddresses": true
                 }
               },
 			  "subnet2": {
@@ -183,11 +178,6 @@
                 "defaultValue": {
                   "name": "external",
                   "addressPrefixSize": "/24"
-                },
-                "constraints": {
-                  "minAddressPrefixSize": "/24",
-                  "minAddressCount": 2,
-                  "requireContiguousAddresses": false
                 }
               }
             }
@@ -197,8 +187,7 @@
     ],
     "outputs": {
       "location": "[location()]",
-	  "deploymentName": "[basics('uniqueNamePrefix')]",
-      "uniqueNamePrefix": "[basics('uniqueNamePrefix')]",
+	  "uniqueNamePrefix": "[basics('uniqueNamePrefix')]",
       "adminUsername": "[basics('adminUsername')]",
       "adminPassword": "[basics('adminCredentials').password]",
       "sshPublicKey": "[basics('adminCredentials').sshPublicKey]",
