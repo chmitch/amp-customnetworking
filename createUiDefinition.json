@@ -169,7 +169,7 @@
               "subnet1": {
                 "label": "Internal Subnet for Tetration Resources",
                 "defaultValue": {
-                  "name": "default",
+                  "name": "internal",
                   "addressPrefixSize": "/24"
                 },
                 "constraints": {
@@ -181,7 +181,7 @@
 			  "subnet2": {
                 "label": "External Subnet for Tetration Resources",
                 "defaultValue": {
-                  "name": "default",
+                  "name": "external",
                   "addressPrefixSize": "/24"
                 },
                 "constraints": {
@@ -197,6 +197,7 @@
     ],
     "outputs": {
       "location": "[location()]",
+	  "deploymentName": "[basics('uniqueNamePrefix')]",
       "uniqueNamePrefix": "[basics('uniqueNamePrefix')]",
       "adminUsername": "[basics('adminUsername')]",
       "adminPassword": "[basics('adminCredentials').password]",
